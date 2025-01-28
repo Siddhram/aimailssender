@@ -38,12 +38,11 @@ app.post('/user-chat', async (req, res) => {
 
     // Prepare the request body for the external API
     const requestBody = {
-      username: 'siddharam',
       prompt: prompt,
     };
 
     // Send the request to the external API
-    const response = await axios.post('https://llama-1.onrender.com/history', requestBody);
+    const response = await axios.post('https://nohistorymodel.onrender.com/chat', requestBody);
 
     // Use the response data to send an email
     await transporter.sendMail({
