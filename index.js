@@ -34,7 +34,17 @@ app.post('/user-chat', async (req, res) => {
       return res.status(400).json({ error: 'user_chat is required' });
     }
 
-    const prompt = `You are an AI assistant tasked with drafting a professional email to a government authority regarding a case of deep fake fraud. Below is the chat history between the user and the chatbot, which outlines the user's experiences with deep fake issues related to news, images, or videos. \nUser Chat History: ${user_chat}\n\nBased on the information provided, please generate a concise and professional email body that includes the following elements:\n1. A brief introduction of the user and the purpose of the email.\n2. A summary of the deep fake issues faced by the user, including any specific examples mentioned in the chat.\n3. A request for assistance or action from the government authority regarding this matter.\n4. A polite closing statement.\n\nPlease do not include any introductory phrases like 'Here is a draft email body based on the chat history.' Just provide the email content directly. The email should be suitable for communication with a government official.`;
+    const prompt = `Generate a professional email body to a government authority regarding a case of deep fake fraud. The email content must be entirely based on the following chat history provided by the user:
+
+User Chat History: ${user_chat}
+
+The email body should:
+1. Provide a detailed and specific explanation of the deep fake issues described in the chat history, using examples or instances mentioned by the user (e.g., manipulated images, videos, or news affecting them).
+2. Include a formal request for assistance or action from the government authority to address these concerns.
+3. End with a polite and professional closing statement.
+
+Ensure the email content is entirely focused on the user_chat details, avoiding any introductory or generic statements. The email should be direct, professional, and suitable for communication with a government official.`;
+
 
     // Prepare the request body for the external API
     const requestBody = {
