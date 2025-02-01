@@ -37,10 +37,8 @@ app.post('/user-chat', async (req, res) => {
    const prompt = `You are an AI assistant tasked with drafting a professional email to a government authority regarding a case of deep fake fraud. Below is the chat history between the user and the chatbot, which outlines the user's experiences with deep fake issues related to news, images, or videos. 
 User Chat History: ${user_chat}
 Based on the information provided in the chat history, please generate a concise and professional email that includes the following elements:
-1. A brief introduction of the user and the purpose of the email.
-2. A summary of the deep fake issues faced by the user, including any specific examples mentioned in the chat.
-3. A request for assistance or action from the government authority regarding this matter.
-4. A polite closing statement.
+ A summary of the deep fake issues faced by the user, including any specific examples mentioned in the chat. A request for assistance or action from the government authority regarding this matter.
+ A polite closing statement.
 
 The email should be clear, formal, and suitable for communication with a government official.
 `;
