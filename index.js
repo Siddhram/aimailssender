@@ -3,7 +3,10 @@ const cors = require('cors');
 const axios = require('axios');
 const app = express();
 const nodemailer = require('nodemailer');
-
+const Groq = require('groq-sdk');
+const groq = new Groq({
+  apiKey: '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'
+});
 // Use CORS middleware to allow cross-origin requests
 app.use(cors());
 
@@ -50,14 +53,33 @@ The email should be clear, formal, and suitable for communication with a governm
     };
 
     // Send the request to the external API
-    const response = await axios.post('https://nohistorymodel.onrender.com/chat', requestBody);
+      const messages = [
+      { role: 'user', content: prompt }
+    ];
+
+    // Call the Groq SDK
+    const chatCompletion = await groq.chat.completions.create({
+      messages,
+      model: "llama-3.3-70b-versatile",
+      temperature: 1,
+      max_completion_tokens: 1024,
+      top_p: 1,
+      stream: false,
+      stop: null
+    });
+
+    // Extract and format the assistant's response
+    const response = chatCompletion.choices?.[0]?.message?.content || "No response from the assistant.";
+//     const response = await axios.post('https://nohistorymodel.onrender.com/chat', requestBody);
+// console.log(response.data.response);
+console.log(response);
 
     // Use the response data to send an email
     await transporter.sendMail({
       from: 'Atharva Patange <atharvapatange07@gmail.com>', // Sender address
       to: 'siddharamsutar23@gmail.com', // Recipient(s)
       subject: 'Report of Deep Fake Fraud Case', // Subject
-      text: response.data.response, // Email content (plain text)
+      text: response, // Email content (plain text)
     });
 
     res.status(200).json({
